@@ -9,7 +9,7 @@ import RootLayout from "./_root/RootLayout";
 const App = () => {
   return (
     <main className="flex h-screen">
-      /* with routes we can declare twe type of rout public ance private */
+      
       <Routes>
         {/* public routes */}
         <Route element={<AuthLayout />}>
@@ -26,3 +26,4 @@ const App = () => {
 };
 
 export default App;
+/* with routes we can declare twe type of rout public ance private */
