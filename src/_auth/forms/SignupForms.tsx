@@ -1,8 +1,7 @@
-import React from 'react'
-
+import { Button } from "@/components/ui/button"
 const SignupForms = () => {
   return (
-    <div>SignupForms</div>
+    <Button>Click Me</Button>
   )
 }
 
