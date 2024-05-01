@@ -16,12 +16,18 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { SignupValidation } from "@/lib/validation";
 import Loader from "@/components/shared/Loader";
-import { createUserAccount } from "@/lib/appwrite/api";
+//import { createUserAccount } from "@/lib/appwrite/api";
 import { useToast } from "@/components/ui/use-toast";
+import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations";
 
 const SignupForms = () => {
   const { toast } = useToast();
-  const isLoading = false;
+ // const isLoading = false;
+
+    const {mutateAsync: createUserAccount, isLoading: isCreatingAccount} = useCreateUserAccount();
+
+    const {mutateAsync: signInAccount, isLoading: isSigningIn} = useSignInAccount();
+
   // 1 define your form
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -34,7 +40,7 @@ const SignupForms = () => {
   });
 
     // Queries
-    const { mutateAsync: createUserAccount, isLoading: isCreatingAccount } = useCreateUserAccountMutation(); 1.32
+   // const { mutateAsync: createUserAccount, isLoading: isCreatingAccount } = useCreateUserAccountMutation(); 1.32
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
@@ -46,9 +52,16 @@ const SignupForms = () => {
         title:'Sign up failed, Please try again.'
       });
     }
-    // const session = await signInAccount()
-    /// create a user
+     const session = await signInAccount({
+      email: values.email,
+      password: values.password,
+     })
+    /// create a user 
     //50.35
+
+    if (!session) {
+      return toast({title: 'Sign in failed! Please try again.'})
+    }
     
   }
   return (
