@@ -26,4 +26,4 @@ const App = () => {
 };
 
 export default App;
-/* with routes we can declare twe type of rout public ance private */
+/* with routes we can declare two type of rout public ance private */

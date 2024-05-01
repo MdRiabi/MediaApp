@@ -1,10 +1,11 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {Link}from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
+  /* FormDescription, */
   FormField,
   FormItem,
   FormLabel,
@@ -14,10 +15,11 @@ import { Input } from "@/components/ui/input";
 
 import { useForm } from "react-hook-form";
 import { SignupValidation } from "@/lib/validation";
+import Loader from "@/components/shared/Loader";
 
 const SignupForms = () => {
 
-  const isLoading = true;
+  const isLoading = false;
   // 1 define your form
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -31,9 +33,10 @@ const SignupForms = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof SignupValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+ 
+    /// create a user
+    //50.35
+    
   }
   return (
     <Form {...form}>
@@ -42,7 +45,7 @@ const SignupForms = () => {
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Create a New Account
         </h2>
-        <p>To use SnapGram enter your details</p>
+        <p>To use SnapGram enter, Please your details</p>
 
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -112,12 +115,16 @@ const SignupForms = () => {
             {
               isLoading ? (
                 <div className="flex-center gap-2">
-                  ...Loading
+                  <Loader/> ...Loading
 
                 </div>
               ): "Sign Up"
             }
           </Button>
+          <p className="text-small-regular text-light-2 text-center mt-2">
+            Already have an account?
+            <Link to="/sign-in" className="test-primary-500 text-small-semibold ml-1">Log In </Link>
+          </p>
         </form>
       </div>
     </Form>
